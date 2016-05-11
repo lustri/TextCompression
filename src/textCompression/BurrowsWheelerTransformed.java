@@ -154,8 +154,6 @@ public class BurrowsWheelerTransformed {
 				block[i] = (char) c;
 				block_aux[i] = (char) c;
 			}
-			
-			//System.out.println(block);
 
 			// Se for o último bloco, muda para o seu respectivo tamanho
 			if (c == -1)
@@ -189,11 +187,24 @@ public class BurrowsWheelerTransformed {
 							}
 						}
 					}
-				
-				//System.out.println(Arrays.toString(position_vector));
 
-				index = Character
+				i = 0;
+				index = 0;
+				while(indexes.charAt(id_position)!= ' '){
+					
+					if(i==0)
+						index = Character
 						.getNumericValue((indexes.charAt(id_position)));
+					else{
+						index = (int) (index*(Math.pow(10,i)) + Character
+								.getNumericValue((indexes.charAt(id_position))));;
+					}
+					
+					i++;
+					id_position++;
+				}
+				
+				id_position++;
 
 				int t = 0;
 				for (i = 0; i < size; i++) {
@@ -205,13 +216,10 @@ public class BurrowsWheelerTransformed {
 
 					original[size - 1 - i] = block[t];
 				}
-				
-				//System.out.println(original);
 
 				for (i = 0; i < size; i++)
 					encode += original[i];
 
-				id_position += 2;
 			}
 		}
 
