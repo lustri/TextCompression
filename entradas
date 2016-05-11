@@ -1,0 +1,2 @@
+encode -i file_in.txt -o file_out.bin --bwt=true --txtblck=8 --huffman=false --runl=false
+decode -i file_out.bin -o file_in.txt
