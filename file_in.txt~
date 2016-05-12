@@ -1,26 +1,6 @@
-int mvme147_request_irq(unsigned int irq,
-		irqreturn_t (*handler)(int, void *, struct pt_regs *),
-                unsigned long flags, const char *devname, void *dev_id)
-{
-	if (irq > 255) {
-		printk("%s: Incorrect IRQ %d from %s\n", __FUNCTION__, irq, devname);
-		return -ENXIO;
-	}
-	if (!(irq_tab[irq].flags & IRQ_FLG_STD)) {
-		if (irq_tab[irq].flags & IRQ_FLG_LOCK) {
-			printk("%s: IRQ %d from %s is not replaceable\n",
-			       __FUNCTION__, irq, irq_tab[irq].devname);
-			return -EBUSY;
-		}
-		if (flags & IRQ_FLG_REPLACE) {
-			printk("%s: %s can't replace IRQ %d from %s\n",
-			       __FUNCTION__, devname, irq, irq_tab[irq].devname);
-			return -EBUSY;
-		}
-	}
-	irq_tab[irq].handler = handler;
-	irq_tab[irq].flags   = flags;
-	irq_tab[irq].dev_id  = dev_id;
-	irq_tab[irq].devname = devname;
-	return 0;
-}
+aaaaaaaaaaaaaaa
+77777777    777777
+		55555555555555555
+
+22
+
