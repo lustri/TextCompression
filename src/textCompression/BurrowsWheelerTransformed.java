@@ -74,7 +74,6 @@ public class BurrowsWheelerTransformed {
 				for (i = 1; i < size; i++)
 					for (j = 0; j < i; j++)
 						matrix[i][size - i + j] = matrix[0][j];
-				
 
 				for (i = 0; i < size; i++)
 					for (j = 0; j < size; j++) {
@@ -86,10 +85,17 @@ public class BurrowsWheelerTransformed {
 						}
 					}
 				
+				for(i=0;i<size;i++)
+					System.out.println(matrix[i]);
+				
+				System.out.println("----------");
+				
 				for (i = 0; i < size; i++)
 					if (Arrays.toString(matrix[i]).compareTo(
-							Arrays.toString(block)) == 0)
+							Arrays.toString(block)) == 0){
 						indexes += i + " ";
+						break;
+					}
 
 				for (i = 0; i < size; i++)
 					encode += matrix[i][size - 1];
@@ -108,7 +114,7 @@ public class BurrowsWheelerTransformed {
 		output_bin.write("---\n".getBytes());
 		output_bin.write(encode.getBytes());
 		output_bin.flush();
-		output_bin.close();
+		output_bin.close(); 
 		
 	}
 
