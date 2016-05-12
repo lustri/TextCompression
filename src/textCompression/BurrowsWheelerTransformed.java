@@ -5,10 +5,10 @@ import java.util.Arrays;
 
 public class BurrowsWheelerTransformed {
 
-	private static InputStreamReader input; // Arquivo entrada.txt
-	private static OutputStream output; // Arquivo saida.bin
-	private static BufferedReader input_decode; // Arquivo entrada.bin
-	private static FileWriter output_decode; //Arquivo saida.txt
+	private static InputStreamReader input_txt; // Arquivo entrada.txt
+	private static OutputStream output_bin; // Arquivo saida.bin
+	private static BufferedReader input_bin; // Arquivo entrada.bin
+	private static FileWriter output_txt; //Arquivo saida.txt
 
 	private static int size;
 
@@ -26,11 +26,11 @@ public class BurrowsWheelerTransformed {
 			String block_size) throws IOException {
 
 		size = Integer.parseInt(block_size);
-		input = new InputStreamReader(new FileInputStream(file_in)); // Abre o
+		input_txt = new InputStreamReader(new FileInputStream(file_in)); // Abre o
 																		// arquivo
 																		// de
 																		// entrada
-		output = new FileOutputStream(new File(file_out));
+		output_bin= new FileOutputStream(new File(file_out));
 		indexes = new String();
 		encode = new String();
 
@@ -46,7 +46,7 @@ public class BurrowsWheelerTransformed {
 			// Separa os blocos
 			for (i = 0; i < size; i++) {
 
-				c = input.read();
+				c = input_txt.read();
 
 				if (c == -1)
 					break;
@@ -97,39 +97,38 @@ public class BurrowsWheelerTransformed {
 			}
 		}
 
-		input.close();
+		input_txt.close();
 
-		output.write("--bwt\n".getBytes());
-		output.write(indexes.getBytes());
-		output.write("\n".getBytes());
-		output.write("--txtblck\n".getBytes());
-		output.write(block_size.getBytes());
-		output.write("\n".getBytes());
-		output.write("---\n".getBytes());
-		output.write(encode.getBytes());
-		output.flush();
-		output.close();
-		
-		System.out.println("DONE!");
+		output_bin.write("--bwt\n".getBytes());
+		output_bin.write(indexes.getBytes());
+		output_bin.write("\n".getBytes());
+		output_bin.write("--txtblck\n".getBytes());
+		output_bin.write(block_size.getBytes());
+		output_bin.write("\n".getBytes());
+		output_bin.write("---\n".getBytes());
+		output_bin.write(encode.getBytes());
+		output_bin.flush();
+		output_bin.close();
 		
 	}
 
 	public static void undoTransformed(String file_in, String file_out)
 			throws IOException {
 
-		input_decode = new BufferedReader(new FileReader(file_in));
+		input_bin = new BufferedReader(new FileReader(file_in));
+		output_txt = new FileWriter(new File(file_out));
 
-		while ((input_decode.readLine()).contains("--bwt") == false)
+		while ((input_bin.readLine()).contains("--bwt") == false)
 			;
 
-		indexes = input_decode.readLine();
+		indexes = input_bin.readLine();
 
-		while ((input_decode.readLine()).contains("--txtblck") == false)
+		while ((input_bin.readLine()).contains("--txtblck") == false)
 			;
 
-		size = Integer.parseInt(input_decode.readLine());
+		size = Integer.parseInt(input_bin.readLine());
 
-		while ((input_decode.readLine()).contains("---") == false)
+		while ((input_bin.readLine()).contains("---") == false)
 			;
 
 		block = new char[size]; // inicial block
@@ -154,7 +153,7 @@ public class BurrowsWheelerTransformed {
 			// Separa os blocos
 			for (i = 0; i < size; i++) {
 
-				c = input_decode.read();
+				c = input_bin.read();
 
 				if (c == -1)
 					break;
@@ -231,11 +230,10 @@ public class BurrowsWheelerTransformed {
 			}
 		}
 
-		input_decode.close();
+		input_bin.close();
 		
-		output_decode = new FileWriter(new File(file_out));
-		output_decode.write(encode);
-		output_decode.flush();
-		output_decode.close();
+		output_txt.write(encode);
+		output_txt.flush();
+		output_txt.close();
 	}
 }

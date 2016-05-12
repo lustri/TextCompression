@@ -17,6 +17,12 @@ public class TextCompression {
 			if (args[5].equals("--bwt=true"))
 				BurrowsWheelerTransformed.doTransformed(args[2], args[4],
 						args[6].substring(10, args[6].length()));
+			
+			if(args[8].equals("--runl=true")){
+				if(args[5].equals("--bwt=false"))
+					RunLength.doCompression(args[2],args[4]);
+			}
+				
 		}
 
 		if (args[0].equals("decode")) {
@@ -36,6 +42,11 @@ public class TextCompression {
 					input.close();
 					BurrowsWheelerTransformed.undoTransformed(args[2],args[4]);
 					break;
+				}
+				
+				if(content.contains("--rl")){
+					input.close();
+					RunLength.undoCompression(args[2],args[4]);
 				}
 			}
 			
