@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 public class BurrowsWheelerTransformed {
 
-	private static InputStreamReader input;
-	private static OutputStream output;
-	private static BufferedReader input_decode;
+	private static InputStreamReader input; // Arquivo entrada.txt
+	private static OutputStream output; // Arquivo saida.bin
+	private static BufferedReader input_decode; // Arquivo entrada.bin
+	private static FileWriter output_decode; //Arquivo saida.txt
 
 	private static int size;
 
@@ -69,12 +70,11 @@ public class BurrowsWheelerTransformed {
 				for (i = 1; i < size; i++)
 					for (j = 0; j < size - 1; j++)
 						matrix[i][j] = matrix[i - 1][j + 1];
-
-
+				
 				for (i = 1; i < size; i++)
 					for (j = 0; j < i; j++)
 						matrix[i][size - i + j] = matrix[0][j];
-
+				
 
 				for (i = 0; i < size; i++)
 					for (j = 0; j < size; j++) {
@@ -109,6 +109,9 @@ public class BurrowsWheelerTransformed {
 		output.write(encode.getBytes());
 		output.flush();
 		output.close();
+		
+		System.out.println("DONE!");
+		
 	}
 
 	public static void undoTransformed(String file_in, String file_out)
@@ -139,6 +142,11 @@ public class BurrowsWheelerTransformed {
 		int index, id_position = 0;
 		char aux;
 		while (c != -1) {
+			
+			block = new char[size]; 
+			block_aux = new char[size]; 
+			original = new char[size]; 
+			position_vector = new int[size];
 
 			for (i = 0; i < size; i++)
 				block[i] = '\0';
@@ -168,7 +176,7 @@ public class BurrowsWheelerTransformed {
 				// Reordenação
 				for (i = 0; i < size; i++)
 					for (j = 0; j < size - 1; j++) {
-						if (block_aux[j] >= block_aux[j + 1]) {
+						if (block_aux[j] > block_aux[j + 1]) {
 							aux = block_aux[j];
 							block_aux[j] = block_aux[j + 1];
 							block_aux[j + 1] = aux;
@@ -187,7 +195,7 @@ public class BurrowsWheelerTransformed {
 							}
 						}
 					}
-
+				
 				i = 0;
 				index = 0;
 				while(indexes.charAt(id_position)!= ' '){
@@ -223,6 +231,11 @@ public class BurrowsWheelerTransformed {
 			}
 		}
 
-		System.out.println(encode);
+		input_decode.close();
+		
+		output_decode = new FileWriter(new File(file_out));
+		output_decode.write(encode);
+		output_decode.flush();
+		output_decode.close();
 	}
 }
