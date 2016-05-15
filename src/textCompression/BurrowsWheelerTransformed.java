@@ -10,6 +10,8 @@ public class BurrowsWheelerTransformed {
 	private static BufferedReader input_bin; // Arquivo entrada.bin
 	private static FileWriter output_txt; // Arquivo saida.txt
 
+
+
 	private static int size;
 
 	private static char matrix[][];
@@ -65,7 +67,7 @@ public class BurrowsWheelerTransformed {
 			if (size > 0) {
 
 				matrix = new char[size][size];
-
+				
 				matrix[0] = block;
 
 				for (i = 1; i < size; i++)
@@ -156,6 +158,7 @@ public class BurrowsWheelerTransformed {
 			block = new char[size];
 			block_aux = new char[size];
 			original = new char[size];
+
 			position_vector = new int[size];
 
 			for (i = 0; i < size; i++)
@@ -168,6 +171,7 @@ public class BurrowsWheelerTransformed {
 					c = input_bin.read();
 				else
 					c = input_txt.read();
+
 
 				if (c == -1)
 					break;
