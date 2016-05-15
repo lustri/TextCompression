@@ -1,2 +1,9 @@
+BWT:
+
 encode -i file_in.txt -o file_out.bin --bwt=true --txtblck=8 --huffman=false --runl=false
-decode -i file_out.bin -o file_in.txt
+decode -i file_out.bin -o file_out.txt
+
+Run-lenght:
+
+encode -i file_in.txt -o file_out.bin --btw=false --txtblck=0 --huffman=false --runl=true
+decode -i file_out.bin -o file_out.txt
