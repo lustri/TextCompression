@@ -7,3 +7,11 @@ Run-lenght:
 
 encode -i file_in.txt -o file_out.bin --btw=false --txtblck=0 --huffman=false --runl=true
 decode -i file_out.bin -o file_out.txt
+
+Huffman:
+// Working on it
+
+BWT + Run-lenght:
+
+encode -i file_in.txt -o file_out.bin --btw=true --txtblck=0 --huffman=false --runl=true
+decode -i file_out.bin -o file_out.txt
