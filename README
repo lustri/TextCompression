@@ -1,0 +1,10 @@
+ALUNOS 
+Ana Clara Kandratavicius Ferreira 	7276877
+Guilherme Lustri de Oliveira		7656492
+
+COMPILAÇÃO
+	javac -d bin  src/textCompression/*.java
+
+EXECUÇÃO
+	java -cp bin textCompression.TextCompression encode -i <file_in.txt> -o <file_out.bin> --bwt=<true/false> --txtblck=x --huffman=<true/false> --runl=<true/false>
+	java -cp bin textCompression.TextCompression decode -i <file_in.bin> -o <file_out.txt>
