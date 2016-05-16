@@ -27,7 +27,9 @@ public class TextCompression {
 
 			if(args[7].equals("--huffman=true")){
 				if(args[5].equals("--bwt=false"))
-					Huffman.compress(args[2],args[4]);
+					Huffman.doCompression(args[2],args[4],0);
+				else
+					Huffman.doCompression(args[4],args[4],1);
 			}
 				
 		}
@@ -43,11 +45,11 @@ public class TextCompression {
 			BufferedReader input = new BufferedReader(new FileReader(args[2]));
 			String content;
 			
-			int rl=0;
+			int rl=0, huffman=0;
 			while((content = input.readLine()).contains("---") == false){
 				
 				if(content.contains("--bwt")){
-					if(rl==0)
+					if(rl==0 && huffman==0)
 						BurrowsWheelerTransformed.undoTransformed(args[2],args[4],0);
 					else
 						BurrowsWheelerTransformed.undoTransformed(args[2],args[4],1);
@@ -59,9 +61,8 @@ public class TextCompression {
 				}
 
 				if(content.contains("--huffman")){
-					input.close();
-					Huffman.decompress(args[2],args[4]);
-					break;
+					Huffman.undoCompression(args[2],args[4]);
+					huffman = 1;
 				}
 			}
 			

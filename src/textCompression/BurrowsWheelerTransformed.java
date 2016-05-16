@@ -5,10 +5,10 @@ import java.util.Arrays;
 
 public class BurrowsWheelerTransformed {
 
-	private static InputStreamReader input_txt; // Arquivo entrada.txt
-	private static OutputStream output_bin; // Arquivo saida.bin
-	private static BufferedReader input_bin; // Arquivo entrada.bin
-	private static FileWriter output_txt; // Arquivo saida.txt
+	private static InputStreamReader input_txt; // File input.txt
+	private static OutputStream output_bin; // File output.bin
+	private static BufferedReader input_bin; // File input.bin
+	private static FileWriter output_txt; // File output.txt
 
 
 
@@ -28,11 +28,10 @@ public class BurrowsWheelerTransformed {
 			String block_size) throws IOException {
 
 		size = Integer.parseInt(block_size);
-		input_txt = new InputStreamReader(new FileInputStream(file_in)); // Abre
-																			// o
-																			// arquivo
-																			// de
-																			// entrada
+		input_txt = new InputStreamReader(new FileInputStream(file_in)); // Open
+																			// the
+																			// input
+																			// file
 		output_bin = new FileOutputStream(new File(file_out));
 		indexes = new String();
 		encode = new String();
@@ -41,12 +40,12 @@ public class BurrowsWheelerTransformed {
 		block_aux = new char[size];
 
 		int c = 0, i = 0, j = 0;
-		while (c != -1) { // Lê o arquivo
+		while (c != -1) { // Read the file
 
 			for (i = 0; i < size; i++)
 				block[i] = '\0';
 
-			// Separa os blocos
+			// Separate the blocks
 			for (i = 0; i < size; i++) {
 
 				c = input_txt.read();
@@ -57,13 +56,13 @@ public class BurrowsWheelerTransformed {
 				block[i] = (char) c;
 			}
 
-			// Se for o último bloco, muda para o seu respectivo tamanho
+			// If It's the last block, changes the size
 			if (c == -1) {
 				size = i;
 				matrix = new char[size][size];
 			}
 
-			// Método BWT
+			// BWT
 			if (size > 0) {
 
 				matrix = new char[size][size];
@@ -119,10 +118,10 @@ public class BurrowsWheelerTransformed {
 	public static void undoTransformed(String file_in, String file_out, int txt)
 			throws IOException {
 
-		input_bin = new BufferedReader(new FileReader(file_in)); // Abre o
-																	// arquivo
-																	// de
-																	// entrada
+		input_bin = new BufferedReader(new FileReader(file_in)); // Open 
+																	// the
+																	// input
+																	// file
 																	// bin
 		while ((input_bin.readLine()).contains("--bwt") == false)
 			;
@@ -138,15 +137,15 @@ public class BurrowsWheelerTransformed {
 			;
 
 		if (txt == 1)
-			input_txt = new InputStreamReader(new FileInputStream(file_out)); // Abre
-																				// arquivo
-																				// de
-																				// entrada
+			input_txt = new InputStreamReader(new FileInputStream(file_out)); // Open
+																				// the
+																				// input
+																				// file
 																				// txt
 
-		block = new char[size]; // inicial block
-		block_aux = new char[size]; // changed block
-		original = new char[size]; // decode block
+		block = new char[size]; // Inicial block
+		block_aux = new char[size]; // Changed block
+		original = new char[size]; // Decode block
 		position_vector = new int[size];
 		encode = new String();
 
@@ -164,7 +163,7 @@ public class BurrowsWheelerTransformed {
 			for (i = 0; i < size; i++)
 				block[i] = '\0';
 
-			// Separa os blocos
+			// Separate the blocks
 			for (i = 0; i < size; i++) {
 
 				if(txt==0)
@@ -180,7 +179,7 @@ public class BurrowsWheelerTransformed {
 				block_aux[i] = (char) c;
 			}
 
-			// Se for o último bloco, muda para o seu respectivo tamanho
+			// If It's the last block, changes the size
 			if (c == -1)
 				size = i;
 
@@ -190,7 +189,7 @@ public class BurrowsWheelerTransformed {
 					position_vector[i] = -1;
 				}
 
-				// Reordenação
+				// Reordenation
 				for (i = 0; i < size; i++)
 					for (j = 0; j < size - 1; j++) {
 						if (block_aux[j] > block_aux[j + 1]) {
@@ -200,7 +199,7 @@ public class BurrowsWheelerTransformed {
 						}
 					}
 
-				// Construção do vetor transição
+				// Build the vector transition 
 
 				for (i = 0; i < size; i++)
 					for (j = 0; j < size; j++) {
