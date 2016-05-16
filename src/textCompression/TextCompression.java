@@ -24,6 +24,11 @@ public class TextCompression {
 				else
 					RunLength.doCompression(args[4],args[4],1);
 			}
+
+			if(args[7].equals("--huffman=true")){
+				if(args[5].equals("--bwt=false"))
+					Huffman.compress(args[2],args[4]);
+			}
 				
 		}
 
@@ -51,6 +56,12 @@ public class TextCompression {
 				if(content.contains("--rl")){
 					RunLength.undoCompression(args[2],args[4]);
 					rl = 1;
+				}
+
+				if(content.contains("--huffman")){
+					input.close();
+					Huffman.decompress(args[2],args[4]);
+					break;
 				}
 			}
 			

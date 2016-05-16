@@ -9,7 +9,8 @@ encode -i file_in.txt -o file_out.bin --btw=false --txtblck=0 --huffman=false --
 decode -i file_out.bin -o file_out.txt
 
 Huffman:
-// Working on it
+encode -i huff_in.txt -o huff_out.bin --btw=false --txtblck=0 --huffman=true --runl=false
+decode -i huff_out.bin -o huff_out.txt
 
 BWT + Run-lenght:
 
