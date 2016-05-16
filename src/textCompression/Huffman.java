@@ -107,20 +107,34 @@ public class Huffman {
 
 	}
 
-	public static void undoCompression(String file_in, String file_out)
+	public static void undoCompression(String file_in, String file_out, int txt)
 			throws IOException {
 
 		input_bin = new BufferedReader(new FileReader(file_in));
-		output_txt = new FileWriter(new File(file_out));
+		
+		if (txt == 1)
+			input_txt = new InputStreamReader(new FileInputStream(file_out)); // Open
+																				// the
+																				// input
+																				// file
+																				// txt
+		
 
 		input_bin.readLine();
 
 		Node root = new Node(-1, -1, null, null);
 		readTree(root);
 
-		decode(root);
+		decode(root,txt);
 
+		if(txt == 1)
+			input_txt.close();
+			
 		input_bin.close();
+		
+		output_txt = new FileWriter(new File(file_out));
+		output_txt.write(encode);
+		output_txt.flush();
 		output_txt.close();
 
 	}
@@ -232,10 +246,17 @@ public class Huffman {
 		}
 	}
 
-	private static void decode(Node root) throws IOException {
+	private static void decode(Node root, int txt) throws IOException {
 		
-		int b = input_bin.read();	
-			
+		encode = new String();
+		
+		int b = 0;
+		
+		if(txt==0)
+			b = input_bin.read();
+		else
+			b = input_txt.read();
+					
 		while (true) {
 			if (b == -1)
 				break;
@@ -246,10 +267,15 @@ public class Huffman {
 					n = n.left;
 				if (b == '1')
 					n = n.right;
-				b = input_bin.read();
+				
+				if(txt==0)
+					b = input_bin.read();
+				else{
+					b = input_txt.read();
+				}
 			}
 			
-			output_txt.write((char) n.symbol);
+			encode += (char) n.symbol;
 		}
 	}
 

@@ -17,19 +17,19 @@ public class TextCompression {
 			if (args[5].equals("--bwt=true"))
 				BurrowsWheelerTransformed.doTransformed(args[2], args[4],
 						args[6].substring(10, args[6].length()));
-			
-			if(args[8].equals("--runl=true")){
-				if(args[5].equals("--bwt=false"))
-					RunLength.doCompression(args[2],args[4],0);
-				else
-					RunLength.doCompression(args[4],args[4],1);
-			}
 
 			if(args[7].equals("--huffman=true")){
 				if(args[5].equals("--bwt=false"))
 					Huffman.doCompression(args[2],args[4],0);
 				else
 					Huffman.doCompression(args[4],args[4],1);
+			}
+			
+			if(args[8].equals("--runl=true")){
+				if(args[5].equals("--bwt=false") && args[7].equals("--huffman=false"))
+					RunLength.doCompression(args[2],args[4],0);
+				else
+					RunLength.doCompression(args[4],args[4],1);
 			}
 				
 		}
@@ -61,9 +61,13 @@ public class TextCompression {
 				}
 
 				if(content.contains("--huffman")){
-					Huffman.undoCompression(args[2],args[4]);
+					if(rl==0)
+						Huffman.undoCompression(args[2],args[4],0);
+					else
+						Huffman.undoCompression(args[2], args[4],1);
+					
 					huffman = 1;
-				}
+				} 
 			}
 			
 			input.close();
