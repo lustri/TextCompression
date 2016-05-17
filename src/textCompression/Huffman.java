@@ -120,7 +120,7 @@ public class Huffman {
 																				// txt
 		
 
-		input_bin.readLine();
+		while(!input_bin.readLine().equals("--huffman"));
 
 		Node root = new Node(-1, -1, null, null);
 		readTree(root);
@@ -207,6 +207,7 @@ public class Huffman {
 	private static void readTree(Node root) throws IOException {
 		while (true) {
 			String s = input_bin.readLine();
+			
 			if ((s.contains("---")))
 				break;
 			
